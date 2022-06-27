@@ -1,6 +1,7 @@
 /** Reservation for Lunchly */
 
 const moment = require("moment");
+//moment() allows displaying dates in a more readable format
 
 const db = require("../db");
 
@@ -38,6 +39,25 @@ class Reservation {
 
     return results.rows.map(row => new Reservation(row));
   }
+ 
+  //get reservation by id
+  static async get(id){
+    const result = await db.query(
+      `SELECT id, customer_id AS "customerId" , num_guests AS "numGuests", 
+      start_at AS "startAt", 
+      FROM reservations WHERE id = $1`,
+      [id]
+    );
+
+    let reservation = results.rows[0];
+
+    if(reservation === undefined){
+      throw new Error(`Reservation with id ${id} not found`);
+    }
+    return new Reservation(reservation);
+  }
+
+
 
   /* This either adds a new reservation if they’re new,
    or updates the existing record if there are changes.*/
