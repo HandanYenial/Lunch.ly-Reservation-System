@@ -60,7 +60,9 @@ class Customer {
   }
 
   /** save this customer. */
-
+  //This either adds a new customer if they’re new, or updates
+  // the existing record if there are changes.
+  
   async save() {
     if (this.id === undefined) {
       const result = await db.query(
@@ -83,7 +85,7 @@ class Customer {
    * by a space.*/
   async fullName(){
     return `${this.firstName} ${this.lastName}`;
-    
+
   }
 }
 
