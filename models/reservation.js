@@ -22,6 +22,17 @@ class Reservation {
   getformattedStartAt() {
     return moment(this.startAt).format('MMMM Do YYYY, h:mm a');
   }
+//method for setting number of guests
+  set numGuests(val){
+    if (val < 1) 
+      throw new Error("Number of guests must be at least 1");
+    this._numGuests = val;
+    }
+  
+//method for getting number of guests
+  get numGuests(){
+    return this._numGuests;
+  }
 
   /** given a customer id, find their reservations. */
 
